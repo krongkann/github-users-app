@@ -1,28 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import Form from "./components/Form";
+import CardList from "./components/CardList";
+import _ from "lodash";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const App = () => {
+  const [cards, setCards] = useState([]);
 
+  const addNewCard = cardInfo => {
+    setCards(cards.concat(cardInfo));
+  };
+  const removeCard = cardInfo => {
+    setCards(_.drop(cards));
+  };
+
+  return (
+    <div>
+      <Form onSubmit={addNewCard} rem />
+      <button onClick={removeCard}>Remove Card</button>
+      <CardList cards={cards} onclick={removeCard} />
+    </div>
+  );
+};
 export default App;
